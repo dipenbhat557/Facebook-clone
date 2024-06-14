@@ -27,7 +27,7 @@ public class PostServiceImpl implements PostService {
 
             PostEntity postEntity = new PostEntity();
             BeanUtils.copyProperties(post, postEntity);
-            System.out.println("The prevois post is " + post + " The later post is " + postEntity);
+            System.out.println("The prevois post is " + post + " The later post is  " + postEntity);
 
             if (post.getFile() != null && !post.getFile().equalsIgnoreCase("null"))
                 postEntity.setImage(post.getFile());

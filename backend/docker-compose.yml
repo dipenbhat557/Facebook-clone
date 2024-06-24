@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  dbservice:
+    image: mysql:8.0
+    container_name: mysql_container
+    environment:
+      MYSQL_ROOT_PASSWORD: Mume@143
+      MYSQL_DATABASE: facebook_db
+      MYSQL_USER: user
+      MYSQL_PASSWORD: Mume@143
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - app-network
+
+  app:
+    image: dipenbhat557/facebook_clone:latest
+    container_name: facebook_clone
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://dbservice:3306/facebook_db?createDatabaseIfNotExist=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: Mume@143
+    depends_on:
+      - dbservice
+    networks:
+      - app-network
+
+volumes:
+  mysql_data:
+
+
+networks:
+  app-network:
